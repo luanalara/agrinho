@@ -1,10 +1,4 @@
-function setup() {
-  createCanvas(400, 400);
-}
-
-function draw() {
-  background(220);
-}let truck;
+let truck;
 let products = [];
 let obstacles = [];
 let score = 0;
@@ -12,6 +6,7 @@ let gameOver = false;
 let emojis = ["🥛", "🌽"]; // leite e milho
 let timer = 30; // segundos
 let gameEndedByTime = false;
+let gameStarted = false; // Controle da tela inicial
 
 function setup() {
   createCanvas(600, 400);
@@ -23,6 +18,11 @@ function setup() {
 
 function draw() {
   background(220, 250, 220); // verde claro
+
+  if (!gameStarted) {
+    showStartScreen();
+    return;
+  }
 
   if (!gameOver) {
     truck.update();
@@ -92,11 +92,34 @@ function draw() {
   }
 }
 
+function showStartScreen() {
+  background(180, 230, 180);
+  fill(0);
+  textSize(28);
+  text("🚛 DESAFIO DA ENTREGA RURAL 🌽🥛", width / 2, 60);
+
+  textSize(18);
+  text("Use as SETAS ← → para mover o caminhão.", width / 2, 140);
+  text("Colete os produtos 🥛🌽 para ganhar pontos.", width / 2, 170);
+  text("Evite os obstáculos 🏢 para não perder!", width / 2, 200);
+  text("Você tem 30 segundos para pontuar o máximo possível!", width / 2, 230);
+
+  textSize(20);
+  fill(50, 100, 50);
+  text("Pressione ENTER para começar!", width / 2, height - 60);
+}
+
 function keyPressed() {
-  if (keyCode === LEFT_ARROW) {
-    truck.move(-1);
-  } else if (keyCode === RIGHT_ARROW) {
-    truck.move(1);
+  if (!gameStarted && keyCode === ENTER) {
+    gameStarted = true;
+  }
+
+  if (gameStarted) {
+    if (keyCode === LEFT_ARROW) {
+      truck.move(-1);
+    } else if (keyCode === RIGHT_ARROW) {
+      truck.move(1);
+    }
   }
 }
 
@@ -168,3 +191,10 @@ class Obstacle {
     return this.y > height;
   }
 }
+  
+
+
+  
+   
+   
+
