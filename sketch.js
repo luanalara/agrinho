@@ -191,4 +191,4 @@ class Obstacle {
     return this.y > height;
   }
 }
-  
+  //crie um jogo com o tema campo cidade agrinho 2025.
